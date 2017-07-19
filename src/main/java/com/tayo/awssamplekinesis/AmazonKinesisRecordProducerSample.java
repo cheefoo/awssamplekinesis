@@ -7,8 +7,10 @@ import java.util.concurrent.TimeUnit;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
+import com.amazonaws.services.kinesis.AmazonKinesis;
 import com.amazonaws.services.kinesis.AmazonKinesisClient;
+import com.amazonaws.services.kinesis.AmazonKinesisClientBuilder;
 import com.amazonaws.services.kinesis.model.CreateStreamRequest;
 import com.amazonaws.services.kinesis.model.DescribeStreamRequest;
 import com.amazonaws.services.kinesis.model.DescribeStreamResult;
@@ -18,6 +20,7 @@ import com.amazonaws.services.kinesis.model.PutRecordRequest;
 import com.amazonaws.services.kinesis.model.PutRecordResult;
 import com.amazonaws.services.kinesis.model.ResourceNotFoundException;
 import com.amazonaws.services.kinesis.model.StreamDescription;
+import com.amazonaws.services.kinesisfirehose.AmazonKinesisFirehoseClientBuilder;
 
 public class AmazonKinesisRecordProducerSample {
 
@@ -34,9 +37,9 @@ public class AmazonKinesisRecordProducerSample {
      *      the credentials file in your source directory.
      */
 
-    private static AmazonKinesisClient kinesis;
+    private static AmazonKinesis kinesis;
 
-    private static void init() throws Exception {
+    private static void init(String region) throws Exception {
         /*
          * The ProfileCredentialsProvider will return your [default]
          * credential profile by reading from the credentials file located at
@@ -44,7 +47,7 @@ public class AmazonKinesisRecordProducerSample {
          */
         AWSCredentials credentials = null;
         try {
-            credentials = new ProfileCredentialsProvider().getCredentials();
+            credentials = new DefaultAWSCredentialsProviderChain().getCredentials();
         } catch (Exception e) {
             throw new AmazonClientException(
                     "Cannot load the credentials from the credential profiles file. " +
@@ -53,19 +56,32 @@ public class AmazonKinesisRecordProducerSample {
                     e);
         }
 
-        kinesis = new AmazonKinesisClient(credentials);
+        kinesis = AmazonKinesisClientBuilder.standard().withRegion(region).build();
     }
 
-    public static void main(String[] args) throws Exception {
-        init();
+    public static void main(String[] args) throws Exception
+    {
+        if(args.length != 2)
+        {
+            System.out.println("USAGE: <stream_name> <aws_region>") ;
+            System.exit(1);
+        }
 
-        final String myStreamName = AmazonKinesisApplicationSample.SAMPLE_APPLICATION_STREAM_NAME;
+
+        String region = args[1];
+        init(region);
+
+        final String myStreamName = args[0];
+        //final String myStreamName = AmazonKinesisApplicationSample.SAMPLE_APPLICATION_STREAM_NAME;
         final Integer myStreamSize = 1;
 
         // Describe the stream and check if it exists.
         DescribeStreamRequest describeStreamRequest = new DescribeStreamRequest().withStreamName(myStreamName);
+
         try {
-            StreamDescription streamDescription = kinesis.describeStream(describeStreamRequest).getStreamDescription();
+
+            StreamDescription streamDescription =  kinesis.describeStream(describeStreamRequest).getStreamDescription();
+           // DescribeStreamResult result = kinesis.describeStream(describeStreamRequest);
             System.out.printf("Stream %s has a status of %s.\n", myStreamName, streamDescription.getStreamStatus());
 
             if ("DELETING".equals(streamDescription.getStreamStatus())) {

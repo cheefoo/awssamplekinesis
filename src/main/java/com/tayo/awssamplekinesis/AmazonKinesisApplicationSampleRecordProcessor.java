@@ -5,6 +5,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.util.List;
 
+import com.amazonaws.services.kinesis.clientlibrary.lib.worker.ShutdownReason;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -13,7 +14,7 @@ import com.amazonaws.services.kinesis.clientlibrary.exceptions.ShutdownException
 import com.amazonaws.services.kinesis.clientlibrary.exceptions.ThrottlingException;
 import com.amazonaws.services.kinesis.clientlibrary.interfaces.IRecordProcessor;
 import com.amazonaws.services.kinesis.clientlibrary.interfaces.IRecordProcessorCheckpointer;
-import com.amazonaws.services.kinesis.clientlibrary.types.ShutdownReason;
+
 import com.amazonaws.services.kinesis.model.Record;
 
 /**
@@ -54,16 +55,18 @@ public class AmazonKinesisApplicationSampleRecordProcessor implements IRecordPro
         processRecordsWithRetries(records);
 
         // Checkpoint once every checkpoint interval.
-        if (System.currentTimeMillis() > nextCheckpointTimeInMillis) 
+        if (System.currentTimeMillis() > nextCheckpointTimeInMillis)
         {
             checkpoint(checkpointer);
             nextCheckpointTimeInMillis = System.currentTimeMillis() + CHECKPOINT_INTERVAL_MILLIS;
         }
     }
 
+
+
     /**
      * Process records performing retries as needed. Skip "poison pill" records.
-     * 
+     *
      * @param records Data records to be processed.
      */
     private void processRecordsWithRetries(List<Record> records) {
@@ -99,7 +102,7 @@ public class AmazonKinesisApplicationSampleRecordProcessor implements IRecordPro
 
     /**
      * Process a single record.
-     * 
+     *
      * @param record The record to be processed.
      */
     private void processSingleRecord(Record record) {
@@ -136,7 +139,7 @@ public class AmazonKinesisApplicationSampleRecordProcessor implements IRecordPro
 
     /** Checkpoint with retries.
      * @param checkpointer
-     */    
+     */
     private void checkpoint(IRecordProcessorCheckpointer checkpointer) {
         LOG.info("Checkpointing shard " + kinesisShardId);
         for (int i = 0; i < NUM_RETRIES; i++) {
