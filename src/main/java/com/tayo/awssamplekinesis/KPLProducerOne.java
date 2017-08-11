@@ -26,9 +26,12 @@ public class KPLProducerOne
 
     private static KinesisProducer getKinesisProducer(String region) throws IOException
     {
-        KinesisProducerConfiguration config = KinesisProducerConfiguration.fromPropertiesFile("kpl_config.properties");
-        config.setRegion(region);
+        KinesisProducerConfiguration config = new KinesisProducerConfiguration();
         config.setCredentialsProvider(new DefaultAWSCredentialsProviderChain());
+        config.setMaxConnections(24);
+        config.setRequestTimeout(60000);
+        config.setRecordMaxBufferedTime(15000);
+        config.setRegion(region);
         return new KinesisProducer(config);
     }
 

@@ -4,10 +4,8 @@ import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import com.amazonaws.AmazonClientException;
+
 import com.amazonaws.AmazonServiceException;
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.kinesis.AmazonKinesis;
 import com.amazonaws.services.kinesis.AmazonKinesisClientBuilder;
 import com.amazonaws.services.kinesis.model.CreateStreamRequest;
@@ -21,40 +19,13 @@ import com.amazonaws.services.kinesis.model.ResourceNotFoundException;
 import com.amazonaws.services.kinesis.model.StreamDescription;
 
 
-public class AmazonKinesisRecordProducerSample {
-
-    /*
-     * Before running the code:
-     *      Fill in your AWS access credentials in the provided credentials
-     *      file template, and be sure to move the file to the default location
-     *      (~/.aws/credentials) where the sample code will load the
-     *      credentials from.
-     *      https://console.aws.amazon.com/iam/home?#security_credential
-     *
-     * WARNING:
-     *      To avoid accidental leakage of your credentials, DO NOT keep
-     *      the credentials file in your source directory.
-     */
+public class AmazonKinesisRecordProducerSample
+{
 
     private static AmazonKinesis kinesis;
 
-    private static void init(String region) throws Exception {
-        /*
-         * The ProfileCredentialsProvider will return your [default]
-         * credential profile by reading from the credentials file located at
-         * (~/.aws/credentials).
-         */
-        AWSCredentials credentials = null;
-        try {
-            credentials = new DefaultAWSCredentialsProviderChain().getCredentials();
-        } catch (Exception e) {
-            throw new AmazonClientException(
-                    "Cannot load the credentials from the credential profiles file. " +
-                    "Please make sure that your credentials file is at the correct " +
-                    "location (~/.aws/credentials), and is in valid format.",
-                    e);
-        }
-
+    private static void init(String region) throws Exception
+    {
         kinesis = AmazonKinesisClientBuilder.standard().withRegion(region).build();
     }
 
@@ -71,7 +42,7 @@ public class AmazonKinesisRecordProducerSample {
         init(region);
 
         final String myStreamName = args[0];
-        //final String myStreamName = AmazonKinesisApplicationSample.SAMPLE_APPLICATION_STREAM_NAME;
+
         final Integer myStreamSize = 1;
 
         // Describe the stream and check if it exists.
@@ -126,7 +97,8 @@ public class AmazonKinesisRecordProducerSample {
         System.out.printf("Putting records in stream : %s until this application is stopped...\n", myStreamName);
         System.out.println("Press CTRL-C to stop.");
         // Write records to the stream until this program is aborted.
-        while (true) {
+        while (true)
+        {
             long createTime = System.currentTimeMillis();
             PutRecordRequest putRecordRequest = new PutRecordRequest();
             putRecordRequest.setStreamName(myStreamName);
