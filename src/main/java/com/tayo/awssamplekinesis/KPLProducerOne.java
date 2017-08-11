@@ -32,6 +32,7 @@ public class KPLProducerOne
         config.setRequestTimeout(60000);
         config.setRecordMaxBufferedTime(15000);
         config.setRegion(region);
+        config.setMetricsNamespace("KPL_Lessons");
         return new KinesisProducer(config);
     }
 
