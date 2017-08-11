@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: '2010-09-09'
-Description: 'AWS CloudFormation Template for creating a Sample KPL and KCL Application
+Description: 'AWS CloudFormation Template for creating a Sample Streams Producer and KCL Application
   stack using a single EC2 instance for sending and getting records. You will be billed
   for the AWS resources used if you create a stack from this template.'
 Parameters:
@@ -9,7 +9,7 @@ Parameters:
     Type: AWS::EC2::KeyPair::KeyName
     ConstraintDescription: must be the name of an existing EC2 KeyPair.
   InstanceType:
-    Description: WebServer EC2 instance type
+    Description: EC2 Application instance type
     Type: String
     Default: t2.small
     AllowedValues:
