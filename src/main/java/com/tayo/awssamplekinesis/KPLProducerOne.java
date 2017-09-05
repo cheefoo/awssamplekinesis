@@ -33,6 +33,7 @@ public class KPLProducerOne
         config.setRecordMaxBufferedTime(15000);
         config.setRegion(region);
         config.setMetricsNamespace("KPL_Lessons");
+        config.setAggregationEnabled(true);
         return new KinesisProducer(config);
     }
 

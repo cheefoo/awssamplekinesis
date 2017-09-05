@@ -18,11 +18,14 @@ import com.amazonaws.services.kinesis.model.PutRecordResult;
 import com.amazonaws.services.kinesis.model.ResourceNotFoundException;
 import com.amazonaws.services.kinesis.model.StreamDescription;
 
+import javax.xml.crypto.Data;
+
 
 public class AmazonKinesisRecordProducerSample
 {
 
     private static AmazonKinesis kinesis;
+    private static final String filePath =  "/Users/temitayo/workspace/awssamplekinesis/scripts/watch/4ff1ddf1-5d30-41a8-bc89-f08d8a8b6d0d.json";
 
     private static void init(String region) throws Exception
     {
@@ -97,18 +100,24 @@ public class AmazonKinesisRecordProducerSample
         System.out.printf("Putting records in stream : %s until this application is stopped...\n", myStreamName);
         System.out.println("Press CTRL-C to stop.");
         // Write records to the stream until this program is aborted.
+        List<String> dataList = DataUtils.retrieveDataLines(filePath);
         while (true)
         {
-            long createTime = System.currentTimeMillis();
-            PutRecordRequest putRecordRequest = new PutRecordRequest();
-            putRecordRequest.setStreamName(myStreamName);
-            putRecordRequest.setData(ByteBuffer.wrap(String.format("testData-%d", createTime).getBytes()));
-            putRecordRequest.setPartitionKey(String.format("partitionKey-%d", createTime));
-            PutRecordResult putRecordResult = kinesis.putRecord(putRecordRequest);
-            System.out.printf("Successfully put record, partition key : %s, ShardID : %s, SequenceNumber : %s.\n",
-                    putRecordRequest.getPartitionKey(),
-                    putRecordResult.getShardId(),
-                    putRecordResult.getSequenceNumber());
+            for(int i = 0; i < dataList.size(); i++ )
+            {
+                long createTime = System.currentTimeMillis();
+                PutRecordRequest putRecordRequest = new PutRecordRequest();
+                putRecordRequest.setStreamName(myStreamName);
+                putRecordRequest.setData(ByteBuffer.wrap(dataList.get(i).getBytes("UTF-8")));
+                putRecordRequest.setPartitionKey(String.format("partitionKey-%d", createTime));
+                System.out.println("Putting record data : " + dataList.get(i));
+                PutRecordResult putRecordResult = kinesis.putRecord(putRecordRequest);
+                System.out.printf("Successfully put record, partition key : %s, ShardID : %s, SequenceNumber : %s.\n",
+                        putRecordRequest.getPartitionKey(),
+                        putRecordResult.getShardId(),
+                        putRecordResult.getSequenceNumber());
+            }
+          dataList = DataUtils.retrieveDataLines(filePath);
         }
     }
 

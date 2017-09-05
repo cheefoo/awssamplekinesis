@@ -79,7 +79,10 @@ public final class AmazonKinesisApplicationSample {
                         streamName,
                         credentialsProvider,
                         workerId);
-        kinesisClientLibConfiguration.withInitialPositionInStream(SAMPLE_APPLICATION_INITIAL_POSITION_IN_STREAM).withRegionName(region);
+        kinesisClientLibConfiguration.withInitialPositionInStream(SAMPLE_APPLICATION_INITIAL_POSITION_IN_STREAM)
+                .withRegionName(region)
+               // .withMaxLeasesToStealAtOneTime(2)
+                .withIdleTimeBetweenReadsInMillis(250);
 
 
         IRecordProcessorFactory recordProcessorFactory = new AmazonKinesisApplicationRecordProcessorFactory();
