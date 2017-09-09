@@ -18,6 +18,8 @@ public class AmazonKinesisRecordProducerAsyncSample
     static AmazonKinesisAsync kinesis;
    // private static  List<String> dataList;
     //Todo: download File from S3 and write to FileSystem
+    //Todo: pass filepath as arguments to main
+    //Todo: Add Execution Service
     private static final String filePath =  "/Users/temitayo/workspace/awssamplekinesis/scripts/watch/4ff1ddf1-5d30-41a8-bc89-f08d8a8b6d0d.json";
     static List<String> dataList = new ArrayList<>();
     private static void init(String region) throws Exception
