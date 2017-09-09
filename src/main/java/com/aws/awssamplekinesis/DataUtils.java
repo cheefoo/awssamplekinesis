@@ -1,4 +1,4 @@
-package com.tayo.awssamplekinesis;
+package com.aws.awssamplekinesis;
 
 import java.io.*;
 import java.util.ArrayList;

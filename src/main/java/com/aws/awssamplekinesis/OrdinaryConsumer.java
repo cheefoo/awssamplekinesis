@@ -1,4 +1,4 @@
-package com.tayo.awssamplekinesis;
+package com.aws.awssamplekinesis;
 
 import com.amazonaws.services.kinesis.AmazonKinesis;
 import com.amazonaws.services.kinesis.AmazonKinesisClientBuilder;

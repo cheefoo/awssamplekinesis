@@ -1,4 +1,4 @@
-package com.tayo.awssamplekinesis;
+package com.aws.awssamplekinesis;
 
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.kinesis.producer.*;
