@@ -91,6 +91,11 @@ Parameters:
     Type: String
     MinLength: '4'
     MaxLength: '10'
+  FileToReadIn:
+    Description: " "
+    Default: "/home/ec2-user/4ff1ddf1-5d30-41a8-bc89-f08d8a8b6d0d.json"
+    Type: String
+    AllowedValues: ["/home/ec2-user/4ff1ddf1-5d30-41a8-bc89-f08d8a8b6d0d.json","/home/ec2-user/4ff1ddf1-5d30-41a8-bc89-f08d8a8b6d0d.json"]
 
 Mappings:
   AWSInstanceType2Arch:
@@ -401,6 +406,11 @@ Resources:
                 Fn::Join:
                   - ''
                   - - "git clone https://github.com/cheefoo/awssamplekinesis.git"
+            download_file:
+              command:
+                Fn::Join:
+                  - ''
+                  - - "aws s3 cp s3://tayo-public/4ff1ddf1-5d30-41a8-bc89-f08d8a8b6d0d.json /home/ec2-user/"
             run_KPL_producer:
               command:
                 Fn::Join:
@@ -416,6 +426,7 @@ Resources:
                   - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.tayo.awssamplekinesis.AmazonKinesisRecordProducerSample  "
                     - Ref: StreamName
                     - Ref: AWSRegion
+                    - Ref: FileToReadIn
                     - " > /home/ec2-user/prod1.log 2>&1 & disown -h %1"
             run_producer2:
               command:
@@ -424,40 +435,26 @@ Resources:
                   - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.tayo.awssamplekinesis.AmazonKinesisRecordProducerSample  "
                     - Ref: StreamName
                     - Ref: AWSRegion
+                    - Ref: FileToReadIn
                     - " > /home/ec2-user/prod2.log 2>&1 & disown -h %1"
             run_producer3:
               command:
                 Fn::Join:
                   - ' '
-                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.tayo.awssamplekinesis.AmazonKinesisRecordProducerSample  "
+                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.tayo.awssamplekinesis.AmazonKinesisRecordProducerAsyncSample  "
                     - Ref: StreamName
                     - Ref: AWSRegion
+                    - Ref: FileToReadIn
                     - " > /home/ec2-user/prod3.log 2>&1 & disown -h %1"
             run_producer4:
               command:
                 Fn::Join:
                   - ' '
-                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.tayo.awssamplekinesis.AmazonKinesisRecordProducerSample  "
+                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.tayo.awssamplekinesis.AmazonKinesisRecordProducerAsyncSample  "
                     - Ref: StreamName
                     - Ref: AWSRegion
+                    - Ref: FileToReadIn
                     - " > /home/ec2-user/prod4.log 2>&1 & disown -h %1"
-            run_producer5:
-              command:
-                Fn::Join:
-                  - ' '
-                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.tayo.awssamplekinesis.AmazonKinesisRecordProducerSample  "
-                    - Ref: StreamName
-                    - Ref: AWSRegion
-                    - " > /home/ec2-user/prod5.log 2>&1 & disown -h %1"
-            run_producer6:
-              command:
-                Fn::Join:
-                  - ' '
-                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.tayo.awssamplekinesis.AmazonKinesisRecordProducerSample  "
-                    - Ref: StreamName
-                    - Ref: AWSRegion
-                    - " > /home/ec2-user/prod6.log 2>&1 & disown -h %1"
-
 
     Properties:
       ImageId:

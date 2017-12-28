@@ -20,7 +20,7 @@ public class AmazonKinesisRecordProducerSample
     private static AmazonKinesis kinesis;
     private static AmazonDynamoDB ddbClient;
     //Todo: download File from S3 and write to FileSystem
-    private static final String filePath =  "/Users/temitayo/workspace/awssamplekinesis/scripts/watch/4ff1ddf1-5d30-41a8-bc89-f08d8a8b6d0d.json";
+    //private static final String filePath =  "/Users/temitayo/workspace/awssamplekinesis/scripts/watch/4ff1ddf1-5d30-41a8-bc89-f08d8a8b6d0d.json";
     static List<String> dataList = new ArrayList<>();
     private static void init(String region) throws Exception
     {
@@ -45,9 +45,9 @@ public class AmazonKinesisRecordProducerSample
 
     public static void main(String[] args) throws Exception
     {
-        if(args.length != 2)
+        if(args.length != 3)
         {
-            System.out.println("USAGE: <stream_name> <aws_region>") ;
+            System.out.println("USAGE: <stream_name> <aws_region> <file_path>") ;
             System.exit(1);
         }
 
@@ -56,6 +56,7 @@ public class AmazonKinesisRecordProducerSample
         init(region);
 
         final String myStreamName = args[0];
+        final String filePath = args[2];
 
         final Integer myStreamSize = 1;
 
