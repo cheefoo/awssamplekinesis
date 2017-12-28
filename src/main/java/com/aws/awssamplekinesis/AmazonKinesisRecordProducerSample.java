@@ -110,7 +110,6 @@ public class AmazonKinesisRecordProducerSample
         }
 
         System.out.printf("Putting records in stream : %s until this application is stopped...\n", myStreamName);
-        System.out.println("Press CTRL-C to stop.");
         // Write records to the stream until this program is aborted.
         dataList = DataUtils.retrieveDataLines(filePath);
 
