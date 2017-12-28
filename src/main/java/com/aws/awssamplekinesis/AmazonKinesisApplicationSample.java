@@ -7,6 +7,7 @@ import com.amazonaws.AmazonClientException;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.kinesis.clientlibrary.interfaces.IRecordProcessorFactory;
+import com.amazonaws.services.kinesis.clientlibrary.lib.worker.DataFetchingStrategy;
 import com.amazonaws.services.kinesis.clientlibrary.lib.worker.InitialPositionInStream;
 import com.amazonaws.services.kinesis.clientlibrary.lib.worker.KinesisClientLibConfiguration;
 import com.amazonaws.services.kinesis.clientlibrary.lib.worker.Worker;
@@ -82,7 +83,12 @@ public final class AmazonKinesisApplicationSample {
         kinesisClientLibConfiguration.withInitialPositionInStream(SAMPLE_APPLICATION_INITIAL_POSITION_IN_STREAM)
                 .withRegionName(region)
                // .withMaxLeasesToStealAtOneTime(2)
-                .withIdleTimeBetweenReadsInMillis(250);
+                //.withIdleTimeBetweenReadsInMillis(250)
+                .withDataFetchingStrategy(String.valueOf(DataFetchingStrategy.DEFAULT))
+                .withMaxPendingProcessRecordsInput(3)
+                .withMaxCacheByteSize(8)
+                .withMaxRecordsCount(30000)
+                .withIdleMillisBetweenCalls(1500);
 
 
         IRecordProcessorFactory recordProcessorFactory = new AmazonKinesisApplicationRecordProcessorFactory();

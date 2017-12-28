@@ -12,7 +12,7 @@ import com.amazonaws.services.kinesis.model.*;
 
 
 
-public class AmazonKinesisRecordProducerAsyncSample
+public class AmazonKinesisRecordProducerAsyncSample implements Runnable
 {
 
     static AmazonKinesisAsync kinesis;
@@ -20,7 +20,7 @@ public class AmazonKinesisRecordProducerAsyncSample
     //Todo: download File from S3 and write to FileSystem
     //Todo: pass filepath as arguments to main
     //Todo: Add Execution Service
-    private static final String filePath =  "/Users/temitayo/workspace/awssamplekinesis/scripts/watch/4ff1ddf1-5d30-41a8-bc89-f08d8a8b6d0d.json";
+    //private static final String filePath =  "/Users/temitayo/workspace/awssamplekinesis/scripts/watch/4ff1ddf1-5d30-41a8-bc89-f08d8a8b6d0d.json";
     static List<String> dataList = new ArrayList<>();
     private static void init(String region) throws Exception
     {
@@ -35,17 +35,18 @@ public class AmazonKinesisRecordProducerAsyncSample
 
     public static void main(String[] args) throws Exception
     {
-        if(args.length != 2)
+        if(args.length != 3)
         {
-            System.out.println("USAGE: <stream_name> <aws_region>") ;
+            System.out.println("USAGE: <stream_name> <aws_region> <file_path>") ;
             System.exit(1);
         }
 
         String region = args[1];
         init(region);
+        String fileName = args[2];
 
         final String myStreamName = args[0];
-        dataList = DataUtils.retrieveDataLines(filePath);
+        dataList = DataUtils.retrieveDataLines(fileName);
         putMultipleRecordBatch(myStreamName, dataList);
     }
 
@@ -86,4 +87,9 @@ public class AmazonKinesisRecordProducerAsyncSample
     }
 
 
+    @Override
+    public void run()
+    {
+
+    }
 }

@@ -7,6 +7,8 @@ import java.util.concurrent.TimeUnit;
 
 
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.kinesis.AmazonKinesis;
 import com.amazonaws.services.kinesis.AmazonKinesisClientBuilder;
 import com.amazonaws.services.kinesis.model.*;
@@ -16,12 +18,14 @@ public class AmazonKinesisRecordProducerSample
 {
 
     private static AmazonKinesis kinesis;
+    private static AmazonDynamoDB ddbClient;
     //Todo: download File from S3 and write to FileSystem
     private static final String filePath =  "/Users/temitayo/workspace/awssamplekinesis/scripts/watch/4ff1ddf1-5d30-41a8-bc89-f08d8a8b6d0d.json";
     static List<String> dataList = new ArrayList<>();
     private static void init(String region) throws Exception
     {
         kinesis = AmazonKinesisClientBuilder.standard().withRegion(region).build();
+        ddbClient = AmazonDynamoDBClientBuilder.standard().withRegion(region).build();
     }
 
     public AmazonKinesisRecordProducerSample()
@@ -37,6 +41,7 @@ public class AmazonKinesisRecordProducerSample
     {
         this.dataList = dataList;
     }
+
 
     public static void main(String[] args) throws Exception
     {
@@ -111,9 +116,32 @@ public class AmazonKinesisRecordProducerSample
         putSingleRecordRun(myStreamName, dataList);
     }
 
+    /*
+    public static void main (String [] args)
+    {
+        String result = createLargePartitionKey();
+        System.out.println(result);
+    } */
+
+    public static String createLargePartitionKey()
+    {
+        String largePartitionKey = "1234567891234567891234567891234567891234567891234567891234567891234567891234" +
+                "56789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456" +
+                "7891234567891234567891234567891234567891234567891234567891234567891234567891234567891234567891234567891234567891234567891234123456789123" +
+                "45678912345678912345678912345678912345678912345678912345678912341234567891234567891234567891234567891234567891234567891234567891234567891234";
+
+        int length = largePartitionKey.length();
+        System.out.println("length = " + length);
+
+        return largePartitionKey;
+
+    }
+
 
     private static void putSingleRecordRun(String myStreamName, List<String> dataList) throws Exception
     {
+       // String largePartitionKeyResult = createLargePartitionKey();
+
         List<String> dataList2 = dataList;
         while (true)
         {

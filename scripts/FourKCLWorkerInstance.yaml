@@ -410,7 +410,7 @@ Resources:
               command:
                 Fn::Join:
                   - ' '
-                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.tayo.awssamplekinesis.AmazonKinesisApplicationSample "
+                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.aws.awssamplekinesis.AmazonKinesisApplicationSample "
                     - Ref: KCLAppName
                     - Ref: StreamName
                     - Ref: AWSRegion
@@ -419,7 +419,7 @@ Resources:
               command:
                 Fn::Join:
                   - ' '
-                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.tayo.awssamplekinesis.AmazonKinesisApplicationSample "
+                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.aws.awssamplekinesis.AmazonKinesisApplicationSample "
                     - Ref: KCLAppName
                     - Ref: StreamName
                     - Ref: AWSRegion
@@ -428,7 +428,7 @@ Resources:
               command:
                 Fn::Join:
                   - ' '
-                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.tayo.awssamplekinesis.AmazonKinesisApplicationSample "
+                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.aws.awssamplekinesis.AmazonKinesisApplicationSample "
                     - Ref: KCLAppName
                     - Ref: StreamName
                     - Ref: AWSRegion
@@ -437,7 +437,7 @@ Resources:
               command:
                 Fn::Join:
                   - ' '
-                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.tayo.awssamplekinesis.AmazonKinesisApplicationSample "
+                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.aws.awssamplekinesis.AmazonKinesisApplicationSample "
                     - Ref: KCLAppName
                     - Ref: StreamName
                     - Ref: AWSRegion
