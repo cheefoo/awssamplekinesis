@@ -91,6 +91,11 @@ Parameters:
     Type: String
     MinLength: '4'
     MaxLength: '10'
+  FileToReadIn:
+      Description: " "
+      Default: "/home/ec2-user/4ff1ddf1-5d30-41a8-bc89-f08d8a8b6d0d.json"
+      Type: String
+      AllowedValues: ["/home/ec2-user/4ff1ddf1-5d30-41a8-bc89-f08d8a8b6d0d.json","/home/ec2-user/4ff1ddf1-5d30-41a8-bc89-f08d8a8b6d0d.json"]
 
 Mappings:
   AWSInstanceType2Arch:
@@ -421,7 +426,7 @@ Resources:
                   - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.aws.awssamplekinesis.AmazonKinesisRecordProducerAsyncSample"
                     - Ref: StreamName
                     - Ref: AWSRegion
-                    - Ref: "/home/ec2-user/4ff1ddf1-5d30-41a8-bc89-f08d8a8b6d0d.json"
+                    - Ref: FileToReadIn
                     - " > /home/ec2-user/prod1.log 2>&1 & disown -h %1"
 
     Properties:
