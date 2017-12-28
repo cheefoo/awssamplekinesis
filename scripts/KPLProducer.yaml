@@ -415,7 +415,7 @@ Resources:
               command:
                 Fn::Join:
                   - ' '
-                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.tayo.awssamplekinesis.KPLProducerOne "
+                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.aws.awssamplekinesis.KPLProducerOne "
                     - Ref: StreamName
                     - Ref: AWSRegion
                     - " > /home/ec2-user/kpl.log 2>&1 & disown -h %1"
@@ -423,7 +423,7 @@ Resources:
               command:
                 Fn::Join:
                   - ' '
-                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.tayo.awssamplekinesis.AmazonKinesisRecordProducerSample  "
+                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.aws.awssamplekinesis.AmazonKinesisRecordProducerSample  "
                     - Ref: StreamName
                     - Ref: AWSRegion
                     - Ref: FileToReadIn
@@ -432,7 +432,7 @@ Resources:
               command:
                 Fn::Join:
                   - ' '
-                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.tayo.awssamplekinesis.AmazonKinesisRecordProducerSample  "
+                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.aws.awssamplekinesis.AmazonKinesisRecordProducerSample  "
                     - Ref: StreamName
                     - Ref: AWSRegion
                     - Ref: FileToReadIn
@@ -441,7 +441,7 @@ Resources:
               command:
                 Fn::Join:
                   - ' '
-                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.tayo.awssamplekinesis.AmazonKinesisRecordProducerAsyncSample  "
+                  - - "nohup java -cp  /awssamplekinesis/target/awssamplekinesis-0.0.1-SNAPSHOT.jar com.aws.awssamplekinesis.AmazonKinesisRecordProducerAsyncSample  "
                     - Ref: StreamName
                     - Ref: AWSRegion
                     - Ref: FileToReadIn
