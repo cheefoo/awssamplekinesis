@@ -410,7 +410,7 @@ Resources:
               command:
                 Fn::Join:
                   - ''
-                  - - "aws s3 cp s3://tayo-public/4ff1ddf1-5d30-41a8-bc89-f08d8a8b6d0d.json /home/ec2-user/"
+                  - - "aws s3 cp s3://temitayo-shared/4ff1ddf1-5d30-41a8-bc89-f08d8a8b6d0d.json /home/ec2-user/"
             run_KPL_producer:
               command:
                 Fn::Join:
