@@ -11,9 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.math.BigInteger;
 import java.nio.ByteBuffer;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 
@@ -106,7 +104,7 @@ public class KPLProducerOne
             {
                 long createTime = System.currentTimeMillis();
                 ByteBuffer data = ByteBuffer.wrap(String.format("testData-%d", createTime).getBytes("UTF-8"));
-                ListenableFuture<UserRecordResult> f = producer.addUserRecord(streamName, randomPartitionKey(), data);
+                ListenableFuture<UserRecordResult> f = producer.addUserRecord(streamName, DataUtils.randomPartitionKey(), data);
                 Thread.sleep(1);
                 Futures.addCallback(f, callback);
             }
@@ -121,12 +119,5 @@ public class KPLProducerOne
 
     }
 
-
-
-
-    public static String randomPartitionKey()
-    {
-        return new BigInteger(128, new Random()).toString(10);
-    }
 
 }

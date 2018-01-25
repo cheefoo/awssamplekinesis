@@ -1,8 +1,10 @@
 package com.aws.awssamplekinesis;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by temitayo on 8/30/17.
@@ -22,4 +24,9 @@ public class DataUtils
 
        return dataList;
    }
+
+    public static String randomPartitionKey()
+    {
+        return new BigInteger(128, new Random()).toString(10);
+    }
 }

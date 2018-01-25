@@ -1,7 +1,8 @@
 #!/usr/bin/python
 # This script will generate Json data on demand
 #{
- #   "TICKER": "AMZN",
+ # "CLIENT_ID"
+# "TICKER": "AMZN",
  #   "TxnType: "BUY"
 #    "salePrice": "89.00",
 #    "orderId": "F",
@@ -77,7 +78,7 @@ if __name__ == "__main__":
             create_names(fake)
             #create_names()
             file_object.close()
-            naptime=random.randint(3,40)
+            naptime=random.randint(1,5)
             print "generated " + str(numberRows) + " records into " + targetDir + "/" + destFile
             print "sleeping for " + str(naptime) + " seconds"
             os.rename(targetDir+"/"+destFile, putDir+"/"+destFile);

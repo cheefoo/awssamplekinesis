@@ -8,7 +8,6 @@ import java.util.concurrent.TimeUnit;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.kinesis.AmazonKinesis;
 import com.amazonaws.services.kinesis.AmazonKinesisClientBuilder;
 import com.amazonaws.services.kinesis.model.*;
@@ -25,7 +24,7 @@ public class AmazonKinesisRecordProducerSample
     private static void init(String region) throws Exception
     {
         kinesis = AmazonKinesisClientBuilder.standard().withRegion(region).build();
-        ddbClient = AmazonDynamoDBClientBuilder.standard().withRegion(region).build();
+       // ddbClient = AmazonDynamoDBClientBuilder.standard().withRegion(region).build();
     }
 
     public AmazonKinesisRecordProducerSample()
